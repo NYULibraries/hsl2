@@ -2,7 +2,7 @@
 
 Welcome to the repository of the HSL phase 2 project.
 
-Check out the [wiki](/wiki) and [our awesome team](#The Awesome Team).
+Check out the [wiki](//github.com/NYULibraries/hsl2/wiki) and [our awesome team](#The Awesome Team).
 
 ## The Awesome Team
 ### Co-Chairs
