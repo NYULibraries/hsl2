@@ -12,7 +12,7 @@ Check out the [wiki](//github.com/NYULibraries/hsl2/wiki) and [our awesome team]
 ### HSL :stars:
 - Mike Barrett
 - Stuart Spore
-- [sciencex](//github.com/sciencex)
+- [sciencex](//github.com/sciencex) :rocket:
 - Karen Yacobucci
 
 ### NYU Libraries :moyai:
