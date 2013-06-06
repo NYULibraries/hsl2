@@ -19,6 +19,6 @@ To edit this file crazy easily, check out [prose](http://prose.io/#NYULibraries/
 
 ### NYU Libraries :moyai:
 - [Maltarich](//github.com/Maltarich) :punch:
-- [chrpr](//github.com/chrpr)
+- [chrpr](//github.com/chrpr) :monkey:
 - Yuri Medvinsky
 - David Perry
