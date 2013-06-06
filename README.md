@@ -16,7 +16,7 @@ Check out the [wiki](//github.com/NYULibraries/hsl2/wiki) and [our awesome team]
 - Karen Yacobucci
 
 ### NYU Libraries :moyai:
-- [Maltarich](//github.com/Maltarich)
+- [Maltarich](//github.com/Maltarich) :punch:
 - [chrpr](//github.com/chrpr)
 - Yuri Medvinsky
 - David Perry
