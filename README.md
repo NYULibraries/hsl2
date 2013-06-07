@@ -8,7 +8,7 @@ To edit this file crazy easily, check out [prose](http://prose.io/#NYULibraries/
 
 ## The Awesome Team
 ### Co-Chairs
-- [Stephen Maher](github.com/mahers01) :titanic:
+- [Stephen Maher](//github.com/mahers01) :anchor:
 - [scotdalton](//github.com/scotdalton) :baby_bottle:
 
 ### HSL :stars:
