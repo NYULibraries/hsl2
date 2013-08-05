@@ -18,14 +18,14 @@ N = ElementMaker(namespace="http://purl.org/nyu/digicat/",
 				nsmap = {'nyu': "http://purl.org/nyu/digicat/"})
 
 schemaloc = ("http://www.openarchives.org/OAI/2.0/ "
-         		"http://www.openarchives.org/OAI/2.0/OAI-PMH.xsd")
+						"http://www.openarchives.org/OAI/2.0/OAI-PMH.xsd")
 
 OAI = getattr(E, 'OAI-PMH')
 
 LIST = E.ListRecords
 
 xml = OAI(
-  LIST()
+	LIST()
 )
 
 listrecs = xml.find("{http://www.openarchives.org/OAI/2.0}ListRecords")
@@ -35,26 +35,53 @@ xml.set('dcterms', 'http://purl.org/dc/terms/')
 xml.set('nyucore', 'http://purl.org/nyu/digicat/')
 
 def unicode_csv_reader(unicode_csv_data, dialect=csv.excel, **kwargs):
-    # csv.py doesn't do Unicode; encode temporarily as UTF-8:
-    csv_reader = csv.reader(utf_8_encoder(unicode_csv_data),
-                            dialect=dialect, **kwargs)
-    for row in csv_reader:
-        # decode UTF-8 back to Unicode, cell by cell:
-        yield [unicode(cell, 'utf-8') for cell in row]
+	# csv.py doesn't do Unicode; encode temporarily as UTF-8:
+	csv_reader = csv.reader(utf_8_encoder(unicode_csv_data),
+													dialect=dialect, **kwargs)
+	for row in csv_reader:
+		# decode UTF-8 back to Unicode, cell by cell:
+		yield [unicode(cell, 'utf-8') for cell in row]
 
 def utf_8_encoder(unicode_csv_data):
-    for line in unicode_csv_data:
-        yield line.encode('utf-8')
+	for line in unicode_csv_data:
+		yield line.encode('utf-8')
 
 fn = sys.argv[1]
 ofn = sys.argv[2]
 data =  codecs.open(fn, 'r', encoding='utf-8')
 reader = unicode_csv_reader(data)
 for r in reader:
-  	## This is the bit that handles all the mapping to NYU core.
-  	## Uses Element Makers above. 
-  	## D = dc; T = dcterms; N = nyucore
-  	record = E.record(
+	## This is the bit that handles all the mapping to NYU core.
+	## Uses Element Makers above. 
+	## D = dc; T = dcterms; N = nyucore
+	## first we'll do a bit of extra parsing on our issns & isbns
+	
+	pissbn = r[4]
+	if len(pissbn) in [8,9]:
+		pissn = pissbn + " (print)"
+		pisbn = ""
+		print pisbn + "|" + pissn
+	elif len(pissbn) not in [8,9,0,3]:
+		pisbn = pissbn + " (print)"
+		pissn = ""
+		print pisbn + "|" + pissn
+	else:
+		pisbn = ""
+		pissn = ""
+	
+	eissbn = r[5]
+	if len(eissbn) in [8,9]:
+		eissn = eissbn + " (electronic)"
+		eisbn = ""
+	elif len(eissbn) not in [8,9,0,3]:
+		eisbn = eissbn + " (electronic)"
+		# + str(len(eissbn))
+		eissn = ""
+	else:
+		eisbn = ""
+		eissn = ""
+
+	record = E.record(
 		E.header(
 			E.identifier(str(r[0].encode('utf-8')))
 		),
@@ -64,22 +91,24 @@ for r in reader:
 				D.title(r[1]),
 				T.alternative(r[2]),
 				N.accessURL(r[3]),
-				N.issn(r[4]),
-				N.issn(r[5]),
+				N.isbn(eisbn),
+				N.isbn(pisbn),
+				N.issn(eissn),
+				N.issn(pissn),
 				D.contributor(r[6]),
 				D.type(r[8]),
 				D.subject(r[9]),
 				N.availability(r[10]),
-				T.isPartOf(r[13]),
+				N.vendor(r[13]),
 				D.description(r[14]),
 				N.processing('HSLERD')
-
 			)
 		)
 	)
+	
 	listrecs.append(record)
 
-  	xml.attrib['{{{pre}}}schemaLocation'.format(pre="http://www.w3.org/2001/XMLSchema-instance")] = schemaloc
+	xml.attrib['{{{pre}}}schemaLocation'.format(pre="http://www.w3.org/2001/XMLSchema-instance")] = schemaloc
 
 # This stuff isn't really necessary.
 # Is there in a (failed) attempt to get all namespace declarations on root element
