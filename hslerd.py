@@ -49,7 +49,11 @@ def utf_8_encoder(unicode_csv_data):
 fn = sys.argv[1]
 ofn = sys.argv[2]
 data =  codecs.open(fn, 'r', encoding='utf-8')
-reader = unicode_csv_reader(data)
+reader = unicode_csv_reader(data, delimiter='\t')
+
+# Handling mapping ERD types to BobCat types in script rather than Primo
+typer = {"Journal": "journal", "Etext": "book", "Database": "database"}
+
 for r in reader:
 	## This is the bit that handles all the mapping to NYU core.
 	## Uses Element Makers above. 
@@ -60,11 +64,11 @@ for r in reader:
 	if len(pissbn) in [8,9]:
 		pissn = pissbn + " (print)"
 		pisbn = ""
-		print pisbn + "|" + pissn
+		#print pisbn + "|" + pissn
 	elif len(pissbn) not in [8,9,0,3]:
 		pisbn = pissbn + " (print)"
 		pissn = ""
-		print pisbn + "|" + pissn
+		#print pisbn + "|" + pissn
 	else:
 		pisbn = ""
 		pissn = ""
@@ -96,18 +100,19 @@ for r in reader:
 				N.issn(eissn),
 				N.issn(pissn),
 				D.contributor(r[6]),
-				D.type(r[8]),
-				D.subject(r[9]),
-				N.availability(r[10]),
-				N.vendor(r[13]),
-				D.description(r[14]),
+				#D.type("Journal"),
+				D.type(typer[r[8]]),
+				#D.subject(r[9]),
+				N.availability(r[9]),
+				N.vendor(r[12]),
+				D.description(r[13]),
 				N.processing('HSLERD')
 			)
 		)
 	)
 	
 	listrecs.append(record)
-
+	print typer[r[8]]
 	xml.attrib['{{{pre}}}schemaLocation'.format(pre="http://www.w3.org/2001/XMLSchema-instance")] = schemaloc
 
 # This stuff isn't really necessary.
