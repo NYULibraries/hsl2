@@ -112,7 +112,7 @@ for r in reader:
 	)
 	
 	listrecs.append(record)
-	print typer[r[8]]
+	#print typer[r[8]]
 	xml.attrib['{{{pre}}}schemaLocation'.format(pre="http://www.w3.org/2001/XMLSchema-instance")] = schemaloc
 
 # This stuff isn't really necessary.
