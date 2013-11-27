@@ -5,12 +5,13 @@ import os, subprocess, ConfigParser, time
 cfg = ConfigParser.ConfigParser()
 cfg.readfp(open(os.path.expanduser("~/cred.ini")))
 
-dbname = 'mylibrary'
-host     = cfg.get(dbname, 'host')
-port     = cfg.get(dbname, 'port')
-username = cfg.get(dbname, 'user')
-password = cfg.get(dbname, 'pass')
-query    = cfg.get(dbname, 'query')
+c = 'ERD'
+dbname   = cfg.get(c, 'dbname')
+host     = cfg.get(c, 'host')
+port     = cfg.get(c, 'port')
+username = cfg.get(c, 'user')
+password = cfg.get(c, 'pass')
+query    = cfg.get(c, 'query')
 
 git_dir  = os.path.expanduser('~/ERDdumps/hsl2')
 ERDfile  = git_dir + '/ERDdata.txt'
