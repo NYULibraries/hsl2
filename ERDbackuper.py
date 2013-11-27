@@ -1,11 +1,9 @@
 #! /usr/bin/python
 
-import sys, os, subprocess, ConfigParser, time
-
+import os, subprocess, ConfigParser, time
 
 cfg = ConfigParser.ConfigParser()
 cfg.readfp(open(os.path.expanduser("~/cred.ini")))
-
 
 dbname = 'mylibrary'
 host     = cfg.get(dbname, 'host')
@@ -18,7 +16,6 @@ git_dir  = os.path.expanduser('~/ERDdumps/hsl2')
 ERDfile  = git_dir + '/ERDdata.txt'
 
 timestamp = time.strftime("%c")
-
 
 
 try:
