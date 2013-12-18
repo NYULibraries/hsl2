@@ -20,7 +20,7 @@ timestamp = time.strftime("%c")
 
 
 try:
-    subprocess.check_call('mysql --skip-column-names -u %s -p"%s" -h %s -P %s %s -e "%s" > %s'
+    subprocess.check_call('mysql --skip-column-names --default-character-set=utf8 -u %s -p"%s" -h %s -P %s %s -e "%s" > %s'
                             % (username, password, host, port, dbname, query, ERDfile),
                             shell=True)
 except subprocess.CalledProcessError as e:
