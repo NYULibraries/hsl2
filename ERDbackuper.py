@@ -28,7 +28,6 @@ try:
 except subprocess.CalledProcessError as e:
     print "\n\nMySQL Dump failed at %s with code: %s" % (timestamp, e.returncode)
     exit(1)
-   
 
 try:
     subprocess.check_call(['git','--git-dir', git_dir + '/.git',
