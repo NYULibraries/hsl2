@@ -15,7 +15,7 @@ username = cfg.get(c, 'user')
 password = cfg.get(c, 'pass')
 query    = cfg.get(c, 'query')
 
-git_dir  = os.path.expanduser('~/ERDdumps/hsl2')
+git_dir  = os.path.expanduser('/var/lib/ERDpipe/hsl2')
 ERDfile  = git_dir + '/ERDdata.txt'
 
 timestamp = time.strftime("%c")
