@@ -49,7 +49,7 @@ def utf_8_encoder(unicode_csv_data):
 fn = sys.argv[1]
 ofn = sys.argv[2]
 data =  codecs.open(fn, 'r', encoding='utf-8')
-reader = unicode_csv_reader(data, delimiter='\t')
+reader = unicode_csv_reader(data, delimiter='\t' , quoting=csv.QUOTE_NONE)
 
 # Handling mapping ERD types to BobCat types in script rather than Primo
 typer = {"Journal": "journal", "Etext": "book", "Database": "database"}
